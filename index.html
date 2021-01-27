@@ -15,7 +15,7 @@
                 <h4>Login</h4>
                 <input type="text" class="form-control">
                 <br>
-                <input type="password" class="form-control" name="" id="">
+                <input type="password" class="form-control" name="" id=""><br>
                 <button id="login-btn" class=" btn btn-primary">Enter</button>
             </div>
         </div>
@@ -30,13 +30,13 @@
                 <div class="col-md-4 ">
                     <div class="withdraw status">
                         <h5>Withdraw</h5>
-                        <h2>$000</h2>
+                        <h2>$ <span id="currentWithdraw">00</span></h2>
                     </div>
                 </div>
                 <div class="col-md-4 ">
                     <div class="balance status">
                         <h5>Balance</h5>
-                    <h2>$<span id="currentBalance">1200</span></h2>
+                    <h2>$<span id="currentBalance">1240</span></h2>
                     </div>
                 </div>
             </div>
@@ -71,24 +71,33 @@
             transactionArea.style.display = "block";
         })
 
+
+
         //=============== Deposit button event handler:==========================
         const depositBtn = document.getElementById('addDeposit');
         depositBtn.addEventListener('click' , function(){
-            depositNumber = getInputNumber('depositNumber');
+            depositNumber = getInputNumber('depositAmount');
 
 
             updateSpanText('currentDeposit', depositNumber);
             updateSpanText('currentBalance', depositNumber);
-            document.getElementById('depositAmount').value= ''
+            document.getElementById('depositAmount').value= '';
             
         })
 
-        // ==================Withdraw button event handler==================
+       // ==================Withdraw button event handler==================
         const withdrawBtn = document.getElementById('addWithdraw');
         withdrawBtn.addEventListener('click' , function(){
             withdrawNumber = getInputNumber('withdrawAmount');
-            console.log(withdrawNumber);
+
+            updateSpanText('currentWithdraw', withdrawNumber);
+            updateSpanText('currentBalance', -1 * withdrawNumber);
+            document.getElementById('withdrawAmount').value= '';
         })
+
+
+
+        //=================== Common function code======================
 
         function getInputNumber(id){
             const amount = document.getElementById(id).value;
@@ -102,6 +111,7 @@
             const totalAmount = depositNumber + currentNumber;
             document.getElementById(id).innerText = totalAmount;
         }
+       
     </script>
 </body>
 </html>
